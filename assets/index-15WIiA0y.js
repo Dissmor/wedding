@@ -57,13 +57,11 @@ Error generating stack: `+e.message+`
   --olive:#6b8e23;
   --green:#2ecc71;
 
-  /* Айвори / слоновая кость */
   --ivory-0:#fbf6ee;
   --ivory-1:#f6efe6;
   --ivory-2:#efe4d6;
   --ivory-3:#e8dccb;
 
-  /* Текст */
   --ink: rgba(59,13,30,.95);
   --ink-2: rgba(59,13,30,.78);
   --ink-3: rgba(59,13,30,.62);
@@ -83,60 +81,90 @@ body{margin:0;display:block;min-height:100%;background:transparent;place-items:i
   font-family:'Lora',serif;
   color:var(--ink);
   background:
-      radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.70) 0%, rgba(255,255,255,.40) 42%, rgba(255,255,255,0) 72%),
-      radial-gradient(1000px 700px at 80% 90%, rgba(245,232,215,.55) 0%, rgba(245,232,215,.30) 48%, rgba(245,232,215,0) 78%),
-      radial-gradient(920px 660px at 86% 18%, rgba(46,204,113,.06) 0%, rgba(46,204,113,.02) 52%, rgba(46,204,113,0) 78%),
-      radial-gradient(780px 560px at 10% 78%, rgba(46,204,113,.05) 0%, rgba(46,204,113,.02) 56%, rgba(46,204,113,0) 80%),
-      linear-gradient(180deg, var(--ivory-0) 0%, var(--ivory-1) 32%, var(--ivory-2) 66%, var(--ivory-3) 100%);
+    linear-gradient(180deg, var(--ivory-0) 0%, var(--ivory-1) 32%, var(--ivory-2) 66%, var(--ivory-3) 100%),
+    radial-gradient(circle at 20% 30%, rgba(59,13,30,.05) 0 1px, transparent 1px 6px);
   overflow-x:hidden;
   min-height:100vh;
   position:relative;
+  isolation: isolate;
 }
 
-/* Слой «ленточек»/перламутра — чтобы фон был богаче, но не отвлекал */
 .page::before{
   content:"";
   position:fixed;
+  z-index: 0;
   inset:-40px;
   pointer-events:none;
   background:
-    radial-gradient(620px 420px at 12% 18%, rgba(212,175,55,.14), transparent 70%),
-    radial-gradient(620px 420px at 86% 12%, rgba(255,255,255,.18), transparent 72%),
-    radial-gradient(560px 420px at 82% 78%, rgba(212,175,55,.10), transparent 72%),
-    linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 55%),
-    linear-gradient(210deg, rgba(212,175,55,.08) 0%, rgba(212,175,55,0) 60%),
-    radial-gradient(1200px 420px at 50% 46%, rgba(59,13,30,.06), transparent 68%);
+    radial-gradient(1200px 900px at 50% 30%, rgba(255,255,255,.00) 0%, rgba(59,13,30,.10) 70%, rgba(59,13,30,.18) 100%),
+    linear-gradient(115deg, transparent 0%, rgba(212,175,55,.06) 20%, transparent 52%) ,
+    linear-gradient(245deg, transparent 0%, rgba(59,13,30,.06) 22%, transparent 55%),
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.10) 0%,
+      rgba(255,255,255,0) 55%
+     ),
+    linear-gradient(
+      210deg,
+      rgba(212,175,55,.08) 0%,
+      rgba(212,175,55,0) 60%
+    ),
+    radial-gradient(circle at 20% 30%, rgba(59,13,30,.05) 0 1px, transparent 1px 6px);
+
   opacity:.92;
   mix-blend-mode:multiply;
   filter: blur(.35px);
+  animation: floatLight 16s ease-in-out infinite;
 }
 
-/* «Пыль» и микроблики */
+@keyframes floatLight{
+  0%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(18px,-12px,0) scale(1.02); }
+  100%{ transform: translate3d(-12px,8px,0) scale(1.015); }
+}
+
 .page::after{
   content:"";
   position:fixed;
+  z-index: 0;
   inset:-60px;
   pointer-events:none;
+
   background:
-    radial-gradient(1px 1px at 12% 18%, rgba(59,13,30,.06), transparent 60%),
-    radial-gradient(1px 1px at 24% 74%, rgba(59,13,30,.05), transparent 60%),
-    radial-gradient(1px 1px at 68% 22%, rgba(59,13,30,.05), transparent 60%),
-    radial-gradient(1px 1px at 82% 66%, rgba(59,13,30,.05), transparent 60%),
-    radial-gradient(1.5px 1.5px at 44% 38%, rgba(212,175,55,.08), transparent 62%),
-    radial-gradient(1.5px 1.5px at 58% 78%, rgba(212,175,55,.07), transparent 62%),
-    radial-gradient(1px 1px at 8% 58%, rgba(46,204,113,.035), transparent 62%),
-    radial-gradient(1px 1px at 92% 40%, rgba(46,204,113,.035), transparent 62%),
-    repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.020) 0 1px, transparent 1px 6px);
-  opacity:.78;
-  mix-blend-mode:screen;
-  filter: blur(.6px);
-  animation: floatDust 14s ease-in-out infinite;
+    repeating-linear-gradient(
+      45deg,
+      rgba(59,13,30,.045) 0px,
+      rgba(59,13,30,.045) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 6px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(59,13,30,.028) 0px,
+      rgba(59,13,30,.028) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 8px
+    ),
+    radial-gradient(circle at 20% 30%, rgba(59,13,30,.05) 0 1px, transparent 1px 6px);
+
+  opacity:.38;
+
+  mix-blend-mode:multiply;
+
+  filter: blur(.18px);
+
+  animation: floatLight 14s ease-in-out infinite;
 }
 
 @keyframes floatDust{
   0%{ transform: translate3d(0,0,0) scale(1); }
   50%{ transform: translate3d(12px,-10px,0) scale(1.02); }
   100%{ transform: translate3d(0,0,0) scale(1); }
+}
+
+.page > *{
+  position: relative;
+  z-index: 1;
 }
 
 .container{max-width:1100px;margin:0 auto;}
@@ -151,7 +179,6 @@ body{margin:0;display:block;min-height:100%;background:transparent;place-items:i
   position:relative;
 }
 
-/* мягкий свет внутри секций, чтобы не было «полос» переходов */
 .section::before{
   content:"";
   position:absolute;
@@ -159,9 +186,6 @@ body{margin:0;display:block;min-height:100%;background:transparent;place-items:i
   pointer-events:none;
   opacity:.55;
   background:
-    radial-gradient(760px 260px at 12% 20%, rgba(255,255,255,.16), transparent 70%),
-    radial-gradient(760px 260px at 88% 82%, rgba(46,204,113,.05), transparent 76%),
-    radial-gradient(760px 240px at 50% 50%, rgba(59,13,30,.05), transparent 78%),
     linear-gradient(135deg, transparent 0%, rgba(212,175,55,.05) 40%, transparent 72%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
@@ -205,7 +229,6 @@ h1,h2,h3{
 .btn3d:hover{transform:translateY(-2px);box-shadow:0 24px 62px rgba(0,0,0,.34), 0 0 34px rgba(212,175,55,.22);}
 .btn3d:active{transform:translateY(1px) scale(.99);}
 
-/* Главные карточки: айвори-стекло с бордово-золотой кромкой */
 .card{
   background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.72));
   border: 1px solid rgba(59,13,30,.14);
@@ -219,6 +242,7 @@ h1,h2,h3{
   backdrop-filter: blur(10px);
   position:relative;
 }
+
 .card::after{content:"";position:absolute;inset:0;border-radius:24px;pointer-events:none;box-shadow: inset 0 0 0 1px rgba(255,255,255,.22);}
 
 .goldFrame{
@@ -244,9 +268,7 @@ h1,h2,h3{
 .wishesList{margin:16px auto 0;padding:0;list-style:none;max-width:820px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 @media (max-width:820px){.wishesList{grid-template-columns:1fr;}}
 
-/* Пункты-пожелания — контрастные, но мягкие */
-.wishItem{
-  background: linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.62));
+.wishItem{background: linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.62));
   border:1px solid rgba(46,204,113,.18);
   border-left-color: rgba(212,175,55,.22);
   border-right-color: rgba(59,13,30,.10);
@@ -255,11 +277,13 @@ h1,h2,h3{
   box-shadow:0 14px 34px rgba(59,13,30,.08);
   color:rgba(59,13,30,.82);
 }
-.wishItem b{color:rgba(59,13,30,.98);font-weight:700;}
+.wishItem b{
+    color:rgba(59,13,30,.98);font-weight:700;
+}
 
 .gridRow{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
 .ovals{gap:18px;margin-top:18px;}
-.ovalFrame{width:150px;height:212px;border-radius:999px;padding:4px;background:linear-gradient(135deg, rgba(212,175,55,.60), rgba(255,255,255,.70));box-shadow:0 14px 34px rgba(59,13,30,.12);position:relative;}
+.ovalFrame{width:172px;height:234px;border-radius:999px;padding:4px;background:linear-gradient(135deg, rgba(212,175,55,.60), rgba(255,255,255,.70));box-shadow:0 14px 34px rgba(59,13,30,.12);position:relative;}
 .ovalInner{width:100%;height:100%;border-radius:999px;overflow:hidden;background:rgba(0,0,0,.06);border:1px solid rgba(59,13,30,.08);}
 .ovalInner img{width:100%;height:100%;object-fit:cover;display:block;opacity:.96}
 
@@ -272,8 +296,40 @@ h1,h2,h3{
 .timeline{display:flex;flex-direction:column;gap:12px;}
 .timeCard{border-radius:22px;padding:14px 14px;background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.62));border:1px solid rgba(59,13,30,.12);box-shadow:0 14px 34px rgba(59,13,30,.10);position:relative;overflow:hidden;}
 .timeTop{display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.timeTop b{font-family:'Playfair Display',serif;font-size:18px;color:rgba(59,13,30,.96);}
-.timeBadge{padding:8px 10px;border-radius:999px;background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.24);color:rgba(59,13,30,.92);font-size:12px;box-shadow:0 0 16px rgba(46,204,113,.10);white-space:nowrap;}
+.timeTop b{
+  font-family:'Playfair Display',serif;
+  font-size:19px;
+  font-weight:700;
+  color: rgba(59,13,30,.92);
+}
+.timeBadge{
+  padding:12px 18px;
+  border-radius:999px;
+
+  background: linear-gradient(135deg, rgba(59,13,30,.94), rgba(90,22,49,.92));
+  border: 1px solid rgba(212,175,55,.55);
+
+  color: rgba(255,247,242,.98);
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  line-height: 1;
+
+  /* Визуальный "pop" */
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.20),
+    0 0 22px rgba(212,175,55,.12);
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+
+  /* аккуратное выравнивание */
+  min-width: 140x;
+  text-align: center;
+  white-space: nowrap;
+}
+@media (max-width:560px){
+  .timeBadge{ min-width: 96px; font-size: 13px; padding:9px 12px; }
+}
 .timeDesc{
   margin-top:8px;
   color:rgba(59,13,30,.82);
@@ -343,4 +399,4 @@ h1,h2,h3{
 
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(59,13,30,.92);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:12px 14px;box-shadow:0 18px 60px rgba(0,0,0,.28);max-width:min(620px,92vw);z-index:50;backdrop-filter: blur(10px);}
 
-`,[]);return p.jsxs("div",{className:"page",children:[p.jsx("style",{children:O}),p.jsx("link",{rel:"stylesheet",href:"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&display=swap"}),p.jsx("section",{className:"section show","data-section":!0,children:p.jsxs("div",{className:"container hero",children:[p.jsx("div",{style:{width:"min(560px, 92vw)",borderRadius:28,padding:10,background:"linear-gradient(135deg, rgba(212,175,55,.9), rgba(255,255,255,.35))",boxShadow:"0 30px 80px rgba(0,0,0,.55), 0 0 40px rgba(212,175,55,.25)"},children:p.jsx("img",{alt:"Аркадий и Софья",src:Ba.hero,style:{width:"100%",height:"auto",maxHeight:"70vh",objectFit:"cover",borderRadius:22,display:"block"},onError:y=>{y.currentTarget.src=qa}})}),p.jsx("h1",{className:"heroTitle",children:"Аркадий и Софья"}),p.jsx("div",{className:"ornLine"}),p.jsx("button",{className:"btn3d",onClick:E,children:"Где и когда"})]})}),p.jsx("section",{className:"section","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame",children:"Дорогие друзья и близкие!"}),p.jsxs("div",{className:"wishesText",children:["Мы счастливы пригласить вас разделить с нами день, с которого начнётся наша семейная история.",p.jsx("br",{}),"Этот праздник для нас – не просто дата в календаре. Это момент, когда рядом будут люди, которые были частью нашего пути, поддерживали нас, радовались вместе с нами и верили в нас.",p.jsx("br",{}),"Нам очень важно провести этот день в тёплой, живой и искренней атмосфере. Мы мечтаем, чтобы он запомнился вам как уютный семейный праздник, где можно смеяться, танцевать, общаться и чувствовать себя свободно.",p.jsx("br",{}),"Ваше присутствие – уже самый большой подарок для нас."]}),p.jsxs("ul",{className:"wishesList","aria-label":"Пожелания гостям",children:[p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Будьте собой:"})," нам важны вы настоящие – с вашими улыбками, эмоциями и смехом."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Танцуйте:"})," даже если обычно стесняетесь – в этот вечер можно всё."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Фотографии приветствуются:"})," мы будем рады кадрам с вашими взглядами на этот день."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Пунктуальность:"})," будем благодарны, если вы придёте немного заранее."]})]}),p.jsxs("div",{className:"gridRow ovals",style:{marginTop:20},children:[p.jsx("div",{className:"ovalFrame","aria-label":"Детское фото 1",children:p.jsx("div",{className:"ovalInner",children:p.jsx("img",{alt:"Детское фото",src:Ba.kid1,onError:y=>{y.currentTarget.src=qa}})})}),p.jsx("div",{className:"ovalFrame","aria-label":"Детское фото 2",children:p.jsx("div",{className:"ovalInner",children:p.jsx("img",{alt:"Детское фото",src:Ba.kid2,onError:y=>{y.currentTarget.src=qa}})})})]})]})}),p.jsx("section",{className:"section","data-section":!0,ref:M,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Где и когда"}),p.jsxs("div",{className:"whereGrid",children:[p.jsx("div",{className:"card",style:{padding:16},children:p.jsx("canvas",{ref:k,className:"mapCanvas","aria-label":"Маршрут"})}),p.jsx("div",{className:"timeline","aria-label":"Тайминг",children:dh.map(y=>p.jsxs("div",{className:"timeCard",children:[p.jsxs("div",{className:"timeTop",children:[p.jsx("b",{children:y.title}),p.jsx("span",{className:"timeBadge",children:y.time})]}),p.jsx("div",{className:"timeDesc",children:y.desc})]},y.title))})]})]})}),p.jsx("section",{className:"section auto","data-section":!0,children:p.jsx("div",{className:"container formWrap",children:p.jsxs("div",{className:"card",children:[p.jsx("h3",{className:"formTitle",children:"Подтвердите участие"}),p.jsx("div",{className:"field",children:p.jsxs("select",{className:"select",value:Yl,onChange:y=>Ft(y.target.value),children:[p.jsx("option",{value:"1",children:"Кол-во гостей: 1"}),p.jsx("option",{value:"2",children:"Кол-во гостей: 2"}),p.jsx("option",{value:"3",children:"Кол-во гостей: 3"}),p.jsx("option",{value:"custom",children:"Кол-во гостей: введу своё"})]})}),Yl==="custom"?p.jsx("div",{className:"field",children:p.jsx("input",{className:"input",inputMode:"numeric",placeholder:"Введите количество гостей (например, 4)",value:at,onChange:y=>ua(y.target.value.replace(/[^0-9]/g,""))})}):null,p.jsxs("div",{className:"guestRow",children:[p.jsxs("div",{className:"guestRowHead",children:[p.jsx("b",{children:"Гости"}),p.jsx("span",{className:"guestBadge",children:"Фамилия и имя + возраст"})]}),Gl.map((y,f)=>p.jsxs("div",{className:"guestGrid",children:[p.jsx("input",{className:"input",placeholder:f===0?"Фамилия и имя (вы)":`Фамилия и имя (гость ${f+1})`,value:y.name,onChange:D=>Z(f,D.target.value)}),p.jsx("input",{className:"input",inputMode:"numeric",placeholder:"Возраст",value:y.age,onChange:D=>yl(f,D.target.value)})]},f)),p.jsx("div",{className:"miniHelp",children:"Возраст можно оставить пустым, если не принципиально."})]}),p.jsxs("div",{className:"checks",role:"group","aria-label":"RSVP опции",children:[p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:Et,onChange:y=>st(y.target.checked)}),p.jsx("span",{children:"Приду 8 августа"})]}),p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:I,onChange:y=>{const f=y.target.checked;ot(f),f||(Yt({champagne:!1,wine:!1,beer:!1,nonalc:!1,other:!1}),x(""))}}),p.jsx("span",{children:"Буду пить"})]}),p.jsx("div",{className:`collapse ${I?"show":""}`,children:I?p.jsxs("div",{className:"drinkBox",children:[p.jsx("div",{style:{fontFamily:"Playfair Display, serif",fontSize:18},children:"Что будете пить?"}),p.jsx("div",{className:"drinkGrid",role:"group","aria-label":"Выбор напитков",children:K0.map(y=>p.jsxs("label",{className:"checkLine",style:{margin:0},children:[p.jsx("input",{type:"checkbox",checked:qt[y.key],onChange:()=>pl(y.key)}),p.jsx("span",{children:y.label})]},y.key))}),qt.other?p.jsx("div",{className:"field",style:{marginTop:10},children:p.jsx("input",{className:"input",placeholder:"Уточните: что именно?",value:mt,onChange:y=>x(y.target.value)})}):null,p.jsx("div",{className:"miniHelp",children:"Это поможет нам спланировать бар."})]}):null}),p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:At,onChange:y=>Ya(y.target.checked)}),p.jsx("span",{children:"Второй день 9 августа"})]})]}),p.jsx("div",{className:"field",children:p.jsx("textarea",{className:"textarea",placeholder:"Пожелания (диета/трансфер)",value:yt,onChange:y=>rt(y.target.value)})}),p.jsx("button",{className:"btn3d",style:{width:"100%"},onClick:r,children:"Подтвердить"}),tt?p.jsxs("div",{className:"drinkBox",style:{marginTop:14},children:[p.jsx("div",{style:{fontFamily:"Playfair Display, serif",fontSize:18,marginBottom:8},children:"Текст подтверждения"}),p.jsx("div",{className:"miniHelp",style:{marginTop:0},children:"Можно скопировать и отправить нам в мессенджер, если переживаете, что подтверждение до нас не дошло."}),p.jsx("textarea",{className:"textarea",value:tt,readOnly:!0,style:{marginTop:10}}),p.jsx("button",{className:"btn3d",style:{width:"100%",marginTop:10,padding:"12px 18px"},onClick:async()=>{try{await navigator.clipboard.writeText(tt),al("Скопировано."),window.setTimeout(()=>al(null),2e3)}catch{al("Не удалось скопировать автоматически. Скопируйте текст вручную."),window.setTimeout(()=>al(null),3200)}},children:"Скопировать текст"})]}):null]})})}),p.jsx("section",{className:"section compact","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Подарки"}),p.jsx("div",{className:"card",style:{marginTop:14},children:p.jsxs("div",{className:"giftsGrid",children:[p.jsx("img",{src:Ba.gifts,alt:"Настольные игры",style:{width:"100%",height:180,objectFit:"cover",borderRadius:18,border:"1px solid rgba(212,175,55,.25)",boxShadow:"0 10px 30px rgba(0,0,0,.35)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{style:{textAlign:"justify"},children:[p.jsx("h3",{style:{marginBottom:10,textAlign:"center"},children:"Дарите настольные игры вместо цветов"}),p.jsxs("div",{className:"subtle",style:{lineHeight:1.7},children:["Нам будет особенно приятно получить настольную игру, которую мы сможем доставать в семейные вечера, играть с друзьями и вспоминать этот день.",p.jsx("br",{}),"Цветы, к сожалению, недолговечны, а игры остаются с нами на годы и становятся частью домашней",p.jsx("br",{}),"атмосферы.",p.jsx("br",{}),"Если захотите, можете подписать игру от себя – спустя время это будет очень тёплым воспоминанием."]})]})]})})]})}),p.jsx("section",{className:"section compact","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Дресс-код"}),p.jsxs("div",{className:"cards3",children:[p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressBright,alt:"Светло",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(212,175,55,.22)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"Светло!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Дресс-код свободный.",p.jsx("br",{}),"Главное – в светлом."]})]})]})}),p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressSmile,alt:"С улыбкой",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(46,204,113,.24)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"С улыбкой!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Будет много фото –",p.jsx("br",{}),"пусть на них будет тепло."]})]})]})}),p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressComfort,alt:"Комфортно",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(255,255,255,.18)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"Комфортно!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Танцы и объятия приветствуются.",p.jsx("br",{}),"Берите удобную обувь."]})]})]})})]})]})}),p.jsxs("div",{style:{maxWidth:900,margin:"40px auto 0",padding:"0 18px"},children:[p.jsx("img",{src:Ba.final,alt:"Аркадий и Софья",style:{width:"100%",borderRadius:26,objectFit:"cover",maxHeight:500,boxShadow:"0 30px 80px rgba(0,0,0,.45)",border:"1px solid rgba(212,175,55,.35)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{className:"subtle",style:{textAlign:"center",marginTop:12,lineHeight:1.7},children:["Мы будем очень рады обнять вас, посмеяться вместе и сохранить этот день в памяти как тёплый семейный праздник.",p.jsx("br",{}),p.jsx("br",{}),"До встречи 8 августа 2026.",p.jsx("br",{}),p.jsx("br",{})]})]}),p.jsxs("footer",{className:"footer",children:[p.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:10,fontSize:22,fontFamily:"Playfair Display, serif",position:"relative"},children:[p.jsx("img",{alt:"",src:Ba.footerHeart,style:{width:30,height:30,borderRadius:10,objectFit:"cover"},onError:y=>{y.currentTarget.src=qa}}),p.jsx("span",{children:"Спасибо что разделяете этот день!"})]}),p.jsx("div",{className:"subtle",style:{marginTop:12,position:"relative"},children:"Контакты: +7 904 585 45 83"}),p.jsx("div",{className:"subtle",style:{marginTop:6,position:"relative"},children:"WhatsApp/Telegram – по этому номеру"})]}),G?p.jsx("div",{className:"toast",children:G}):null]})}oh.createRoot(document.getElementById("root")).render(p.jsx(hl.StrictMode,{children:p.jsx(hh,{})}));
+`,[]);return p.jsxs("div",{className:"page",children:[p.jsx("style",{children:O}),p.jsx("link",{rel:"stylesheet",href:"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&display=swap"}),p.jsx("section",{className:"section show","data-section":!0,children:p.jsxs("div",{className:"container hero",children:[p.jsx("div",{style:{width:"min(560px, 92vw)",borderRadius:28,padding:10,background:"linear-gradient(135deg, rgba(212,175,55,.9), rgba(255,255,255,.35))",boxShadow:"0 30px 80px rgba(0,0,0,.55), 0 0 40px rgba(212,175,55,.25)"},children:p.jsx("img",{alt:"Аркадий и Софья",src:Ba.hero,style:{width:"100%",height:"auto",maxHeight:"70vh",objectFit:"cover",borderRadius:22,display:"block"},onError:y=>{y.currentTarget.src=qa}})}),p.jsx("h1",{className:"heroTitle",children:"Аркадий и Софья"}),p.jsx("div",{className:"ornLine"}),p.jsx("button",{className:"btn3d",onClick:E,children:"Где и когда"})]})}),p.jsx("section",{className:"section","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame",children:"Дорогие друзья и близкие!"}),p.jsxs("div",{className:"wishesText",children:["Мы счастливы пригласить вас разделить с нами день, с которого начнётся наша семейная история.",p.jsx("br",{}),"Этот праздник для нас – не просто дата в календаре. Это момент, когда рядом будут люди, которые были частью нашего пути, поддерживали нас, радовались вместе с нами и верили в нас.",p.jsx("br",{}),"Нам очень важно провести этот день в тёплой, живой и искренней атмосфере. Мы мечтаем, чтобы он запомнился вам как уютный семейный праздник, где можно смеяться, танцевать, общаться и чувствовать себя свободно.",p.jsx("br",{}),"Ваше присутствие – уже самый большой подарок для нас."]}),p.jsxs("ul",{className:"wishesList","aria-label":"Пожелания гостям",children:[p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Будьте собой:"})," нам важны вы настоящие – с вашими улыбками, эмоциями и смехом."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Танцуйте:"})," даже если обычно стесняетесь – в этот вечер можно всё."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Фотографии приветствуются:"})," мы будем рады кадрам с вашими взглядами на этот день."]}),p.jsxs("li",{className:"wishItem",children:[p.jsx("b",{children:"Пунктуальность:"})," будем благодарны, если вы придёте немного заранее."]})]}),p.jsxs("div",{className:"gridRow ovals",style:{marginTop:20},children:[p.jsx("div",{className:"ovalFrame","aria-label":"Детское фото 1",children:p.jsx("div",{className:"ovalInner",children:p.jsx("img",{alt:"Детское фото",src:Ba.kid1,onError:y=>{y.currentTarget.src=qa}})})}),p.jsx("div",{className:"ovalFrame","aria-label":"Детское фото 2",children:p.jsx("div",{className:"ovalInner",children:p.jsx("img",{alt:"Детское фото",src:Ba.kid2,onError:y=>{y.currentTarget.src=qa}})})})]})]})}),p.jsx("section",{className:"section","data-section":!0,ref:M,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Где и когда"}),p.jsxs("div",{className:"whereGrid",children:[p.jsx("div",{className:"card",style:{padding:16},children:p.jsx("canvas",{ref:k,className:"mapCanvas","aria-label":"Маршрут"})}),p.jsx("div",{className:"timeline","aria-label":"Тайминг",children:dh.map(y=>p.jsxs("div",{className:"timeCard",children:[p.jsxs("div",{className:"timeTop",children:[p.jsx("b",{children:y.title}),p.jsx("span",{className:"timeBadge",children:y.time})]}),p.jsx("div",{className:"timeDesc",children:y.desc})]},y.title))})]})]})}),p.jsx("section",{className:"section auto","data-section":!0,children:p.jsx("div",{className:"container formWrap",children:p.jsxs("div",{className:"card",children:[p.jsx("h3",{className:"formTitle",children:"Подтвердите участие"}),p.jsx("div",{className:"field",children:p.jsxs("select",{className:"select",value:Yl,onChange:y=>Ft(y.target.value),children:[p.jsx("option",{value:"1",children:"Кол-во гостей: 1"}),p.jsx("option",{value:"2",children:"Кол-во гостей: 2"}),p.jsx("option",{value:"3",children:"Кол-во гостей: 3"}),p.jsx("option",{value:"custom",children:"Кол-во гостей: введу своё"})]})}),Yl==="custom"?p.jsx("div",{className:"field",children:p.jsx("input",{className:"input",inputMode:"numeric",placeholder:"Введите количество гостей (например, 4)",value:at,onChange:y=>ua(y.target.value.replace(/[^0-9]/g,""))})}):null,p.jsxs("div",{className:"guestRow",children:[p.jsx("div",{className:"guestRowHead",children:p.jsx("b",{children:"Гости"})}),Gl.map((y,f)=>p.jsxs("div",{className:"guestGrid",children:[p.jsx("input",{className:"input",placeholder:f===0?"Фамилия и имя (вы)":`Фамилия и имя (гость ${f+1})`,value:y.name,onChange:D=>Z(f,D.target.value)}),p.jsx("input",{className:"input",inputMode:"numeric",placeholder:"Возраст",value:y.age,onChange:D=>yl(f,D.target.value)})]},f)),p.jsx("div",{className:"miniHelp",children:"Возраст можно оставить пустым, если не принципиально."})]}),p.jsxs("div",{className:"checks",role:"group","aria-label":"RSVP опции",children:[p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:Et,onChange:y=>st(y.target.checked)}),p.jsx("span",{children:"Приду 8 августа"})]}),p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:I,onChange:y=>{const f=y.target.checked;ot(f),f||(Yt({champagne:!1,wine:!1,beer:!1,nonalc:!1,other:!1}),x(""))}}),p.jsx("span",{children:"Буду пить"})]}),p.jsx("div",{className:`collapse ${I?"show":""}`,children:I?p.jsxs("div",{className:"drinkBox",children:[p.jsx("div",{style:{fontFamily:"Playfair Display, serif",fontSize:18},children:"Что будете пить?"}),p.jsx("div",{className:"drinkGrid",role:"group","aria-label":"Выбор напитков",children:K0.map(y=>p.jsxs("label",{className:"checkLine",style:{margin:0},children:[p.jsx("input",{type:"checkbox",checked:qt[y.key],onChange:()=>pl(y.key)}),p.jsx("span",{children:y.label})]},y.key))}),qt.other?p.jsx("div",{className:"field",style:{marginTop:10},children:p.jsx("input",{className:"input",placeholder:"Уточните: что именно?",value:mt,onChange:y=>x(y.target.value)})}):null,p.jsx("div",{className:"miniHelp",children:"Это поможет нам спланировать бар."})]}):null}),p.jsxs("label",{className:"checkLine",children:[p.jsx("input",{type:"checkbox",checked:At,onChange:y=>Ya(y.target.checked)}),p.jsx("span",{children:"Второй день 9 августа"})]})]}),p.jsx("div",{className:"field",children:p.jsx("textarea",{className:"textarea",placeholder:"Пожелания (диета/трансфер)",value:yt,onChange:y=>rt(y.target.value)})}),p.jsx("button",{className:"btn3d",style:{width:"100%"},onClick:r,children:"Подтвердить"}),tt?p.jsxs("div",{className:"drinkBox",style:{marginTop:14},children:[p.jsx("div",{style:{fontFamily:"Playfair Display, serif",fontSize:18,marginBottom:8},children:"Текст подтверждения"}),p.jsx("div",{className:"miniHelp",style:{marginTop:0},children:"Можно скопировать и отправить нам в мессенджер, если переживаете, что подтверждение до нас не дошло."}),p.jsx("textarea",{className:"textarea",value:tt,readOnly:!0,style:{marginTop:10}}),p.jsx("button",{className:"btn3d",style:{width:"100%",marginTop:10,padding:"12px 18px"},onClick:async()=>{try{await navigator.clipboard.writeText(tt),al("Скопировано."),window.setTimeout(()=>al(null),2e3)}catch{al("Не удалось скопировать автоматически. Скопируйте текст вручную."),window.setTimeout(()=>al(null),3200)}},children:"Скопировать текст"})]}):null]})})}),p.jsx("section",{className:"section compact","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Подарки"}),p.jsx("div",{className:"card",style:{marginTop:14},children:p.jsxs("div",{className:"giftsGrid",children:[p.jsx("img",{src:Ba.gifts,alt:"Настольные игры",style:{width:"100%",height:180,objectFit:"cover",borderRadius:18,border:"1px solid rgba(212,175,55,.25)",boxShadow:"0 10px 30px rgba(0,0,0,.35)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{style:{textAlign:"justify"},children:[p.jsx("h3",{style:{marginBottom:10,textAlign:"center"},children:"Дарите настольные игры вместо цветов"}),p.jsxs("div",{className:"subtle",style:{lineHeight:1.7},children:["Нам будет особенно приятно получить настольную игру, которую мы сможем доставать в семейные вечера, играть с друзьями и вспоминать этот день.",p.jsx("br",{}),"Цветы, к сожалению, недолговечны, а игры остаются с нами на годы и становятся частью домашней",p.jsx("br",{}),"атмосферы.",p.jsx("br",{}),"Если захотите, можете подписать игру от себя – спустя время это будет очень тёплым воспоминанием."]})]})]})})]})}),p.jsx("section",{className:"section compact","data-section":!0,children:p.jsxs("div",{className:"container",children:[p.jsx("div",{className:"card goldFrame titleFrame",children:"Дресс-код"}),p.jsxs("div",{className:"cards3",children:[p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressBright,alt:"Светло",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(212,175,55,.22)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"Светло!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Дресс-код свободный.",p.jsx("br",{}),"Главное – в светлом."]})]})]})}),p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressSmile,alt:"С улыбкой",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(46,204,113,.24)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"С улыбкой!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Будет много фото –",p.jsx("br",{}),"пусть на них будет тепло."]})]})]})}),p.jsx("div",{className:"card",children:p.jsxs("div",{style:{display:"flex",alignItems:"center",gap:14},children:[p.jsx("img",{src:Ba.dressComfort,alt:"Комфортно",style:{width:64,height:64,borderRadius:18,objectFit:"cover",border:"1px solid rgba(255,255,255,.18)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{children:[p.jsx("b",{style:{fontFamily:"Playfair Display, serif",fontSize:20},children:"Комфортно!"}),p.jsxs("div",{className:"subtle",style:{marginTop:6,lineHeight:1.6},children:["Танцы и объятия приветствуются.",p.jsx("br",{}),"Берите удобную обувь."]})]})]})})]})]})}),p.jsxs("div",{style:{maxWidth:900,margin:"40px auto 0",padding:"0 18px"},children:[p.jsx("img",{src:Ba.final,alt:"Аркадий и Софья",style:{width:"100%",borderRadius:26,objectFit:"cover",maxHeight:500,boxShadow:"0 30px 80px rgba(0,0,0,.45)",border:"1px solid rgba(212,175,55,.35)"},onError:y=>{y.currentTarget.src=qa}}),p.jsxs("div",{className:"subtle",style:{textAlign:"center",marginTop:12,lineHeight:1.7},children:["Мы будем очень рады обнять вас, посмеяться вместе и сохранить этот день в памяти как тёплый семейный праздник.",p.jsx("br",{}),p.jsx("br",{}),"До встречи 8 августа 2026.",p.jsx("br",{}),p.jsx("br",{})]})]}),p.jsxs("footer",{className:"footer",children:[p.jsxs("div",{style:{display:"inline-flex",alignItems:"center",gap:10,fontSize:22,fontFamily:"Playfair Display, serif",position:"relative"},children:[p.jsx("img",{alt:"",src:Ba.footerHeart,style:{width:30,height:30,borderRadius:10,objectFit:"cover"},onError:y=>{y.currentTarget.src=qa}}),p.jsx("span",{children:"Спасибо что разделяете этот день!"})]}),p.jsx("div",{className:"subtle",style:{marginTop:12,position:"relative"},children:"Контакты: +7 904 585 45 83"}),p.jsx("div",{className:"subtle",style:{marginTop:6,position:"relative"},children:"WhatsApp/Telegram – по этому номеру"})]}),G?p.jsx("div",{className:"toast",children:G}):null]})}oh.createRoot(document.getElementById("root")).render(p.jsx(hl.StrictMode,{children:p.jsx(hh,{})}));
