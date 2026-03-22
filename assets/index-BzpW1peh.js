@@ -289,22 +289,23 @@ h1,h2,h3{
 }
 
 .ovals{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap:18px;
   margin-top:18px;
-  flex-wrap:nowrap;
+  width:100%;
+  max-width:560px;
+  margin-left:auto;
+  margin-right:auto;
+  padding-inline:6px;
+  box-sizing:border-box;
 }
 
 .ovalFrame{
-  flex: 0 1 calc(50% - 9px);
-  width: calc(50% - 9px);
-  max-width: 220px;
-  min-width: 0;
+  width:100%;
   aspect-ratio: 172 / 234;
-  border-radius: 999px;
-  padding: 4px;
+  border-radius:999px;
+  padding:4px;
   background: linear-gradient(135deg, rgba(212,175,55,.60), rgba(255,255,255,.70));
   box-shadow: 0 14px 34px rgba(59,13,30,.12);
   position: relative;
@@ -330,12 +331,7 @@ h1,h2,h3{
 @media (max-width: 560px){
   .ovals{
     gap:12px;
-  }
-
-  .ovalFrame{
-    flex: 0 1 calc(50% - 6px);
-    width: calc(50% - 6px);
-    max-width: none;
+    padding-inline:8px;
   }
 }
 
